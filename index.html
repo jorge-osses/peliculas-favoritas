@@ -14,13 +14,32 @@
             <h2><i class="fas fa-film"></i>
                 Mis Peliculas Favoritas</h2>
             <div class="user-input">
-                <input id="input" type="text"><button>Agregar</button>
+                <button id="agregar">Agregar</button>
+                <button id="eliminar">Eliminar</button>
+                <button id="editar">Editar</button>
             </div>
         </div>
+        
     </div>
+
+    <div class="modal-body">
+
+        <div class="modal user-input">
+            <span id="cerrar-modal"><i class="far fa-times-circle"></i></span>
+            <form id="form" action="">
+                <input id="title" type="text" placeholder="Titulo">
+                <input id="year" type="text" placeholder="Año">
+                <input id="director" type="text" placeholder="Director">
+                <input id="genero" type="text" placeholder="Género">
+                <button id="agregarMovie" type="submit">Agregar</button>
+            </form>
+        </div>
+
+    </div>
+
     <div id="films" class="container">
 
     </div>
-    <script src="./app.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

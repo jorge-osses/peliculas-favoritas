@@ -33,7 +33,12 @@ body{
     width: 350px;
     text-align: center;
 }
-.user-input input{
+form {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.user-input form input{
     width:80%;
     outline: none;
     padding: 8px;
@@ -55,13 +60,12 @@ body{
 .user-input button{
     cursor: pointer;
     padding: 8px;
-    width: fit-content;
+    width: 80%;
     transition: 1s;
     outline: none;
     background-color: lightgray;
-    border: 1px solid lightgray;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border: 1px solid rgb(90, 86, 86);
+    border-radius: 5px;
 }
 
 .user-input button:hover{
@@ -69,6 +73,58 @@ body{
     color: white;
 }
 
+.modal-body{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.527);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in;
+}
+.modal-active{
+    visibility: visible;
+    opacity: 1;
+}
+span{
+    color: black;
+    font-size:2rem;
+}
+span:hover{
+    cursor: pointer;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.modal {
+    margin-top: 50px;
+    background-color: white;
+    width: 400px;
+    height: 500px;
+    border-radius: 5px;
+    text-align: center;
+    padding: 22px;
+}
+#films{
+    border-top: 3px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}
+.peliculas-items{
+    margin: 20px;
+    padding: 15px;
+    background-color: beige;
+    color: rgb(34, 33, 33);
+    border-radius: 5px;
+    border: 2px solid rgb(73, 28, 28);
+    box-shadow: 0 2px black;
+}
 @media(max-width:768px){
     .nav{
         align-items: center;
@@ -80,7 +136,7 @@ body{
     }
 
     .user-input{
-        width:100%;
+        width:90%;
     }
 }
 

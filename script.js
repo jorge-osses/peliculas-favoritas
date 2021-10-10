@@ -1,96 +1,242 @@
-let peliculas = JSON.parse(localStorage.getItem('peliculas'));
+// Campos del Formulario
+const nameInput = document.querySelector('#title');
+const yearInput = document.querySelector('#year');
+const directorInput = document.querySelector('#director');
+const generoInput = document.querySelector('#genero');
 
+// UI
+const formulario = document.querySelector('#form');
+const contenedorFilms = document.querySelector('#films');
 
-class Pelicula {
-    constructor(title, year, director, genero) {
-        this.title = title;
-        this.year = year;
-        this.director = director;
-        this.genero = genero;
-    }
-    addPelicula(){
-        peliculas.push({'title': this.title, 'year': this.year, 'director': this.director, 'genero': this.genero});
-        alert(`se agrega la Película ${this.title} al array`);
-        localStorage.setItem("peliculas", JSON.stringify(peliculas));
-        peliculas = JSON.parse(localStorage.getItem('peliculas'));
-    }
-    removePelicula(){
-        peliculas[this].remove();
-        localStorage.setItem("peliculas", JSON.stringify(peliculas));
-        peliculas = JSON.parse(localStorage.getItem('peliculas'));
-    }
+let editando;
+
+class Peliculas {
+  constructor(){
+    this.peliculas = [];
+  }
+
+  agregarPelicula(pelicula){
+    this.peliculas = [...this.peliculas, pelicula]
+
+    console.log(this.peliculas)
+  }
+
+  eliminarPelicula(id){
+    this.peliculas = this.peliculas.filter(pelicula => pelicula.id !== id)
+  }
+
+  editarPelicula(peliculaActualizada){
+    this.peliculas = this.peliculas.map( pelicula => pelicula.id === peliculaActualizada.id ? peliculaActualizada : pelicula );
+  }
 }
 
+class UI {
+  imprimirAlerta(mensaje, tipo){
+    //crear div
+    const divMensaje = document.createElement('div');
+    divMensaje.classList.add('text-center');
 
-
-
-
-const abrirModal = document.getElementById('agregar');
-const cerrarModal = document.getElementById('cerrar-modal');
-const modalContainer = document.getElementsByClassName('modal-body')[0];
-const modal = document.getElementsByClassName('modal')[0];
-
-abrirModal.addEventListener('click', () => {
-    modalContainer.classList.toggle('modal-active')
-})
-
-cerrarModal.addEventListener('click', () => {
-    modalContainer.classList.toggle('modal-active')
-})
-
-modalContainer.addEventListener('click', () => {
-    modalContainer.classList.toggle('modal-active')
-})
-
-modal.addEventListener('click', (event) => {
-    event.stopPropagation()
-})
-
-
-
-
-const form = document.getElementById('form')
-form.addEventListener('submit', (event) => {
-    event.preventDefault()
-    console.log(event)
-
-    const titulo = title.value;
-    const anio = year.value;
-    const direccion = director.value;
-    const tipo = genero.value;
-
-    if (titulo.length > 3 && anio <= 2021 && anio >= 1901 && direccion.length > 3) {
-        let newPelicula = new Pelicula(titulo, anio, direccion, tipo);
-        newPelicula.addPelicula();
-        console.log(peliculas)
-
-        form.reset()
-        form.submit()
+    //Agregar class en base al tio de error
+    if (tipo === 'error') {
+      divMensaje.classList.add('alert-danger');
+    } else {
+      divMensaje.classList.add('alert-success');
     }
-})
 
-if (peliculas.length != 0){
-    for (const pelicula of peliculas) {
-    let div = document.createElement("div");
-    let trashIcon = document.createElement("i");
-    div.innerHTML = `<h3>${pelicula.title}</h3>
-                            <p>Año: ${pelicula.year}</p>
-                            <p>Director: ${pelicula.director}</p>
-                            <p>Genero: ${pelicula.genero}</p>`;
-    document.getElementById('films').appendChild(div);
-    div.classList.add('peliculas-items');
-    trashIcon.className = "fas fa-trash";
-    trashIcon.style.color = "darkgray";
-    trashIcon.addEventListener('mouseover', () => {
+    //mensaje de error
+    divMensaje.textContent = mensaje;
+    // agregar al DOM
+    document.querySelector('#modal').insertBefore(divMensaje, document.querySelector('#cerrar-modal'));
+    //quitar alerta despues de 5 seg
+    setTimeout(() => {
+      divMensaje.remove();
+    }, 5000 );
+  }
+
+  imprimirPeliculas({peliculas}){
+    this.limpiarHTML();
+    peliculas.forEach(pelicula => {
+      const { title, year, director, genero, id } = pelicula;
+
+      const divPelicula = document.createElement('div');
+      divPelicula.dataset.id = id;
+      const trashIcon = document.createElement("i");
+      const editIcon = document.createElement("i");
+      divPelicula.innerHTML = `<h3>${title}</h3>
+                                <p>Año: ${year}</p>
+                                <p>Director: ${director}</p>
+                                <p>Genero: ${genero}</p>`;
+      contenedorFilms.appendChild(divPelicula);
+      divPelicula.classList.add("peliculas-items");
+      trashIcon.className = "fas fa-trash icons";
+      trashIcon.style.color = "darkgray";
+      trashIcon.addEventListener("mouseover", () => {
         trashIcon.style.color = "lightcoral";
+      });
+      trashIcon.addEventListener("mouseout", () => {
+        trashIcon.style.color = "darkgray";
+      });
+      trashIcon.addEventListener("click", () => {
+        eliminarPelicula(id);
+      });
+      divPelicula.appendChild(trashIcon);
+      editIcon.className = "fas fa-edit icons";
+      editIcon.style.color = "darkgray";
+      editIcon.addEventListener("mouseover", () => {
+        editIcon.style.color = "limegreen";
+      });
+      editIcon.addEventListener("mouseout", () => {
+        editIcon.style.color = "darkgray";
+      });
+      editIcon.addEventListener("click", () => {
+        cargarEdicion(pelicula);
+      });
+      divPelicula.appendChild(editIcon);
     })
-    trashIcon.addEventListener('mouseout', () => {
-        trashIcon.style.color = "darkgray"
-    })
-    trashIcon.addEventListener("click", () => {
-        div.remove();
-        pelicula.removePelicula();
-    });
-    div.appendChild(trashIcon);
+  }
+  limpiarHTML() {
+    while (contenedorFilms.firstChild) {
+      contenedorFilms.removeChild( contenedorFilms.firstChild )
     }
+  }
 }
+
+const ui = new UI();
+const administrarPeliculas = new Peliculas();
+
+// Registrar eventos
+
+eventListeners();
+function eventListeners() {
+  nameInput.addEventListener('input', datosFilm);
+  yearInput.addEventListener('input', datosFilm);
+  directorInput.addEventListener('input', datosFilm);
+  generoInput.addEventListener('input', datosFilm);
+
+  formulario.addEventListener('submit', nuevaPelicula);
+}
+// Objeto con informacion de la pelicula
+const peliculaObj = {
+  title: '',
+  year: '',
+  director: '',
+  genero: '',
+}
+// Agregar datos al objeto de peliculas
+function datosFilm(e) {
+  peliculaObj[e.target.name] = e.target.value;
+
+}
+
+// Validar y agregar una nueva pelicula
+function nuevaPelicula(e){
+  e.preventDefault();
+
+  //extraer la informacion del obj
+  const { title, year, director, genero } = peliculaObj;
+
+  //validar
+  if (title === '' || year === '' || director === '' || genero === ''){
+    ui.imprimirAlerta('Todos los campos son obligatorios', 'error');
+    return;
+  }
+  if (editando) {
+    ui.imprimirAlerta('Editado correctamente');
+    //pasar el obj a edicion
+    administrarPeliculas.editarPelicula({...peliculaObj});
+
+    formulario.querySelector('button[type="submit"]').textContent = "Agregar"
+    editando = false;
+    
+  } else {
+    // generar ID del obj
+    peliculaObj.id = Date.now();
+    // Creando una nueva Pelicula
+    administrarPeliculas.agregarPelicula({...peliculaObj});
+    ui.imprimirAlerta('Se agregó correctamente');
+  }
+
+  
+
+  reiniciarObjeto();
+
+  formulario.reset();
+
+  ui.imprimirPeliculas(administrarPeliculas);
+}
+
+function reiniciarObjeto() {
+  peliculaObj.title = '';
+  peliculaObj.year = '';
+  peliculaObj.director = '';
+  peliculaObj.genero = '';
+}
+
+function eliminarPelicula(id) {
+  //Eliminar la pelicula
+  administrarPeliculas.eliminarPelicula(id);
+  //Mostrar mensaje
+  ui.imprimirAlerta('Se Eliminó Correctamente');
+  //Actualizar peliculas
+  ui.imprimirPeliculas(administrarPeliculas);
+}
+
+// cargar modo edicion
+function cargarEdicion(pelicula) {
+  modalContainer.classList.toggle("modal-active");
+  const { title, year, director, genero, id } = pelicula;
+  // rellenar formulario
+  nameInput.value = title;
+  yearInput.value = year;
+  directorInput.value = director;
+  generoInput.value = genero;
+
+  //rellenar el objeto
+  peliculaObj.title = title;
+  peliculaObj.year = year;
+  peliculaObj.director = director;
+  peliculaObj.genero = genero;
+  peliculaObj.id = id;
+
+
+  //cambiar boton
+  formulario.querySelector('button[type="submit"]').textContent = "Guardar Cambios"
+
+  editando = true;
+}
+
+
+
+
+
+
+
+//================================================================
+
+// peliculas = [];
+// // localStorage.setItem("peliculas", JSON.stringify(peliculas));
+// peliculasLS = JSON.parse(localStorage.getItem("peliculas"));
+
+
+
+const abrirModal = document.getElementById("agregar");
+const cerrarModal = document.getElementById("cerrar-modal");
+const modalContainer = document.getElementsByClassName("modal-body")[0];
+const modal = document.getElementsByClassName("modal")[0];
+
+abrirModal.addEventListener("click", () => {
+  modalContainer.classList.toggle("modal-active");
+});
+
+cerrarModal.addEventListener("click", () => {
+  modalContainer.classList.toggle("modal-active");
+  formulario.reset();
+});
+
+modalContainer.addEventListener("click", () => {
+  modalContainer.classList.toggle("modal-active");
+});
+
+modal.addEventListener("click", (event) => {
+  event.stopPropagation();
+});

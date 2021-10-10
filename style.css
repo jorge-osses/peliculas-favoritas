@@ -38,7 +38,7 @@ form {
     flex-direction: column;
     align-items: center;
 }
-.user-input form input{
+.user-input form input, .user-input form select{
     width:80%;
     outline: none;
     padding: 8px;
@@ -52,7 +52,7 @@ form {
     transition: all 0.30s ease-in-out;
 }
 
-.user-input input:focus{
+.user-input input:focus, select:focus{
     box-shadow: 0 0 5px #e22865;
     border: 1px solid #e22865;
 }
@@ -73,6 +73,24 @@ form {
     color: white;
 }
 
+.text-center{
+    text-align: center;
+    width: 100%;
+    color:black;
+    padding: 8px;
+    border-radius: 5px;
+}
+.alert-danger {
+    background-color:red;
+    color: white;
+}
+.alert-success {
+    background-color:green;
+}
+.icons {
+    padding:5px;
+    font-size:2em;
+}
 .modal-body{
     width: 100vw;
     height: 100vh;

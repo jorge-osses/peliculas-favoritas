@@ -15,7 +15,7 @@
                 Mis Peliculas Favoritas</h2>
             <div class="user-input">
                 <button id="agregar">Agregar</button>
-                <button id="eliminar">Eliminar</button>
+                <!-- <button id="eliminar">Eliminar</button> -->
                 <button id="editar">Editar</button>
             </div>
         </div>
@@ -24,13 +24,20 @@
 
     <div class="modal-body">
 
-        <div class="modal user-input">
+        <div id='modal' class="modal user-input">
             <span id="cerrar-modal"><i class="far fa-times-circle"></i></span>
             <form id="form" action="">
-                <input id="title" type="text" placeholder="Titulo">
-                <input id="year" type="text" placeholder="Año">
-                <input id="director" type="text" placeholder="Director">
-                <input id="genero" type="text" placeholder="Género">
+                <input id="title" name="title" type="text" placeholder="Titulo">
+                <input id="year" name="year" type="text" placeholder="Año">
+                <input id="director" name="director" type="text" placeholder="Director">
+                <select id="genero" name="genero">
+                    <option value="infantil">Infantil</option>
+                    <option value="fantasia">Fantasía</option>
+                    <option value="drama">Drama</option>
+                    <option value="suspenso">Suspenso</option>
+                    <option value="terror">Terror</option>
+                    <option value="accion">Acción</option>
+                </select>
                 <button id="agregarMovie" type="submit">Agregar</button>
             </form>
         </div>

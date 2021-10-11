@@ -9,6 +9,7 @@ const formulario = document.querySelector('#form');
 const contenedorFilms = document.querySelector('#films');
 
 let editando;
+const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
 
 class Peliculas {
   constructor(){
@@ -17,16 +18,18 @@ class Peliculas {
 
   agregarPelicula(pelicula){
     this.peliculas = [...this.peliculas, pelicula]
-
-    // console.log(this.peliculas)
+    guardarLocal('peliculas', JSON.stringify(this.peliculas));
+    console.log(this.peliculas)
   }
 
   eliminarPelicula(id){
     this.peliculas = this.peliculas.filter(pelicula => pelicula.id !== id)
+    guardarLocal('peliculas', JSON.stringify(this.peliculas));
   }
 
   editarPelicula(peliculaActualizada){
     this.peliculas = this.peliculas.map( pelicula => pelicula.id === peliculaActualizada.id ? peliculaActualizada : pelicula );
+    guardarLocal('peliculas', JSON.stringify(this.peliculas));
   }
 }
 
@@ -135,8 +138,8 @@ function nuevaPelicula(e){
   //extraer la informacion del obj
   const { title, year, director, genero } = peliculaObj;
 
-  //validar
-  if (title === '' || year === '' || director === '' || genero === ''){
+  //validacion
+  if (title === '' || year === '' || director === ''){
     ui.imprimirAlerta('Todos los campos son obligatorios', 'error');
     return;
   }
@@ -155,8 +158,6 @@ function nuevaPelicula(e){
     administrarPeliculas.agregarPelicula({...peliculaObj});
     ui.imprimirAlerta('Se agregó correctamente');
   }
-
-  
 
   reiniciarObjeto();
 
@@ -206,19 +207,7 @@ function cargarEdicion(pelicula) {
 }
 
 
-
-
-
-
-
-//================================================================
-
-// peliculas = [];
-// // localStorage.setItem("peliculas", JSON.stringify(peliculas));
-// peliculasLS = JSON.parse(localStorage.getItem("peliculas"));
-
-
-
+// Modal
 const abrirModal = document.getElementById("agregar");
 const cerrarModal = document.getElementById("cerrar-modal");
 const modalContainer = document.getElementsByClassName("modal-body")[0];
@@ -249,6 +238,7 @@ modal.addEventListener("click", (event) => {
 
 eliminarLista.addEventListener('click', () => {
   administrarPeliculas.peliculas = [];
+  guardarLocal('peliculas', JSON.stringify(this.peliculas));
   while (contenedorFilms.firstChild){
     contenedorFilms.removeChild(contenedorFilms.firstChild)
   };

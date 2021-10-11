@@ -18,7 +18,7 @@ class Peliculas {
   agregarPelicula(pelicula){
     this.peliculas = [...this.peliculas, pelicula]
 
-    console.log(this.peliculas)
+    // console.log(this.peliculas)
   }
 
   eliminarPelicula(id){
@@ -36,7 +36,7 @@ class UI {
     const divMensaje = document.createElement('div');
     divMensaje.classList.add('text-center');
 
-    //Agregar class en base al tio de error
+    //Agregar class en base al tipo de error
     if (tipo === 'error') {
       divMensaje.classList.add('alert-danger');
     } else {
@@ -223,6 +223,7 @@ const abrirModal = document.getElementById("agregar");
 const cerrarModal = document.getElementById("cerrar-modal");
 const modalContainer = document.getElementsByClassName("modal-body")[0];
 const modal = document.getElementsByClassName("modal")[0];
+const eliminarLista = document.getElementById('eliminar');
 
 abrirModal.addEventListener("click", () => {
   modalContainer.classList.toggle("modal-active");
@@ -230,13 +231,25 @@ abrirModal.addEventListener("click", () => {
 
 cerrarModal.addEventListener("click", () => {
   modalContainer.classList.toggle("modal-active");
+  formulario.querySelector('button[type="submit"]').textContent = "Agregar"
+  editando = false;
   formulario.reset();
 });
 
 modalContainer.addEventListener("click", () => {
   modalContainer.classList.toggle("modal-active");
+  formulario.querySelector('button[type="submit"]').textContent = "Agregar"
+  editando = false;
+  formulario.reset();
 });
 
 modal.addEventListener("click", (event) => {
   event.stopPropagation();
 });
+
+eliminarLista.addEventListener('click', () => {
+  administrarPeliculas.peliculas = [];
+  while (contenedorFilms.firstChild){
+    contenedorFilms.removeChild(contenedorFilms.firstChild)
+  };
+})

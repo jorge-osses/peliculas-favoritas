@@ -15,8 +15,7 @@
                 Mis Peliculas Favoritas</h2>
             <div class="user-input">
                 <button id="agregar">Agregar</button>
-                <!-- <button id="eliminar">Eliminar</button> -->
-                <button id="editar">Editar</button>
+                <button id="eliminar">Eliminar Lista</button>
             </div>
         </div>
         
@@ -31,12 +30,14 @@
                 <input id="year" name="year" type="text" placeholder="Año">
                 <input id="director" name="director" type="text" placeholder="Director">
                 <select id="genero" name="genero">
-                    <option value="infantil">Infantil</option>
-                    <option value="fantasia">Fantasía</option>
-                    <option value="drama">Drama</option>
-                    <option value="suspenso">Suspenso</option>
-                    <option value="terror">Terror</option>
-                    <option value="accion">Acción</option>
+                    <optgroup label="Género">
+                        <option value="infantil">Infantil</option>
+                        <option value="fantasia">Fantasía</option>
+                        <option value="drama">Drama</option>
+                        <option value="suspenso">Suspenso</option>
+                        <option value="terror">Terror</option>
+                        <option value="accion">Acción</option>
+                    </optgroup>
                 </select>
                 <button id="agregarMovie" type="submit">Agregar</button>
             </form>

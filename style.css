@@ -25,6 +25,7 @@ body{
 }
 
 .nav h2{
+    letter-spacing: 2px;
     font-size: 2rem;
     text-shadow: 1px 2px rgb(24, 22, 22);
 }
@@ -150,6 +151,7 @@ form{
     }
 
     .nav h2{
+        letter-spacing: normal;
         margin-top: 10px 0;
     }
 

@@ -144,7 +144,7 @@ form{
     border: 2px solid rgb(73, 28, 28);
     box-shadow: 0 2px black;
 }
-@media(max-width:768px){
+@media(max-width:835px){
     .nav{
         align-items: center;
         flex-direction: column;
@@ -159,11 +159,18 @@ form{
         width:90%;
     }
 }
-
+@media(max-width:778px){
+    .peliculas-items {
+        width: 40%;
+    }
+}
 @media(max-width:480px){
     .user-input input{
         width:74%;
     }    
+    .peliculas-items{
+        width: 90%;
+    }
 }
 
 @media(max-width:320px){

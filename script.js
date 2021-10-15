@@ -10,6 +10,7 @@ const contenedorFilms = document.querySelector('#films');
 
 let editando;
 const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
+// localStorage.setItem('peliculas', []);
 
 class Peliculas {
   constructor(){
@@ -66,7 +67,7 @@ class UI {
       const trashIcon = document.createElement("i");
       const editIcon = document.createElement("i");
       divPelicula.innerHTML = `<h3>${title}</h3>
-                                <p>Año: ${year}</p>
+                                <p>Año: <small>${year}</small></p>
                                 <p>Director: ${director}</p>
                                 <p>Genero: ${genero}</p>`;
       contenedorFilms.appendChild(divPelicula);
@@ -109,13 +110,13 @@ const administrarPeliculas = new Peliculas();
 
 // Registrar eventos
 
-eventListeners();
+
 function eventListeners() {
   nameInput.addEventListener('input', datosFilm);
   yearInput.addEventListener('input', datosFilm);
   directorInput.addEventListener('input', datosFilm);
   generoInput.addEventListener('input', datosFilm);
-
+  
   formulario.addEventListener('submit', nuevaPelicula);
 }
 // Objeto con informacion de la pelicula
@@ -128,7 +129,7 @@ const peliculaObj = {
 // Agregar datos al objeto de peliculas
 function datosFilm(e) {
   peliculaObj[e.target.name] = e.target.value;
-
+  
 }
 
 // Validar y agregar una nueva pelicula
@@ -137,7 +138,7 @@ function nuevaPelicula(e){
 
   //extraer la informacion del obj
   const { title, year, director, genero } = peliculaObj;
-
+  
   //validacion
   if (title === '' || year === '' || director === ''){
     ui.imprimirAlerta('Todos los campos son obligatorios', 'error');
@@ -147,7 +148,7 @@ function nuevaPelicula(e){
     ui.imprimirAlerta('Editado correctamente');
     //pasar el obj a edicion
     administrarPeliculas.editarPelicula({...peliculaObj});
-
+    
     formulario.querySelector('button[type="submit"]').textContent = "Agregar"
     editando = false;
     
@@ -158,11 +159,11 @@ function nuevaPelicula(e){
     administrarPeliculas.agregarPelicula({...peliculaObj});
     ui.imprimirAlerta('Se agregó correctamente');
   }
-
+  
   reiniciarObjeto();
-
+  
   formulario.reset();
-
+  
   ui.imprimirPeliculas(administrarPeliculas);
 }
 
@@ -191,18 +192,18 @@ function cargarEdicion(pelicula) {
   yearInput.value = year;
   directorInput.value = director;
   generoInput.value = genero;
-
+  
   //rellenar el objeto
   peliculaObj.title = title;
   peliculaObj.year = year;
   peliculaObj.director = director;
   peliculaObj.genero = genero;
   peliculaObj.id = id;
-
-
+  
+  
   //cambiar boton
   formulario.querySelector('button[type="submit"]').textContent = "Guardar Cambios"
-
+  
   editando = true;
 }
 
@@ -212,7 +213,6 @@ const abrirModal = document.getElementById("agregar");
 const cerrarModal = document.getElementById("cerrar-modal");
 const modalContainer = document.getElementsByClassName("modal-body")[0];
 const modal = document.getElementsByClassName("modal")[0];
-const eliminarLista = document.getElementById('eliminar');
 
 abrirModal.addEventListener("click", () => {
   modalContainer.classList.toggle("modal-active");
@@ -236,10 +236,24 @@ modal.addEventListener("click", (event) => {
   event.stopPropagation();
 });
 
+// Eliminar lista entera
+const eliminarLista = document.getElementById('eliminar');
 eliminarLista.addEventListener('click', () => {
   administrarPeliculas.peliculas = [];
   guardarLocal('peliculas', JSON.stringify(this.peliculas));
   while (contenedorFilms.firstChild){
     contenedorFilms.removeChild(contenedorFilms.firstChild)
   };
+})
+
+if (localStorage.getItem('peliculas') == []) {
+  eventListeners();
+} else {
+  eventListeners();
+  administrarPeliculas.peliculas = JSON.parse(localStorage.getItem('peliculas'));
+}
+//========== JQUERY=============//
+
+$('#ver-peliculas').click(() => {
+  ui.imprimirPeliculas(administrarPeliculas)
 })

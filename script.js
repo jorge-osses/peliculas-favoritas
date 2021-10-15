@@ -10,7 +10,11 @@ const contenedorFilms = document.querySelector('#films');
 
 let editando;
 const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
-// localStorage.setItem('peliculas', []);
+if (localStorage.getItem('peliculas') == null){
+  localStorage.setItem('peliculas', []);
+} else {
+  console.log('Esto esta ready')
+}
 
 class Peliculas {
   constructor(){
@@ -240,7 +244,7 @@ modal.addEventListener("click", (event) => {
 const eliminarLista = document.getElementById('eliminar');
 eliminarLista.addEventListener('click', () => {
   administrarPeliculas.peliculas = [];
-  guardarLocal('peliculas', JSON.stringify(this.peliculas));
+  guardarLocal('peliculas', JSON.stringify(administrarPeliculas.peliculas));
   while (contenedorFilms.firstChild){
     contenedorFilms.removeChild(contenedorFilms.firstChild)
   };

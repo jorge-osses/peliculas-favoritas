@@ -14,7 +14,7 @@
     <div class="container">
         <div class="nav">
             <h2><i class="fas fa-film"></i>
-                Mis Peliculas Favoritas</h2>
+                Mis Películas Favoritas</h2>
             <div class="user-input">
                 <button id="agregar">Agregar</button>
                 <button id="eliminar">Eliminar Lista</button>
@@ -29,20 +29,21 @@
         <div id='modal' class="modal user-input">
             <span id="cerrar-modal"><i class="far fa-times-circle"></i></span>
             <form id="form" action="">
-                <input id="title" name="title" type="text" placeholder="Titulo">
-                <input id="year" name="year" type="text" placeholder="Año">
-                <input id="director" name="director" type="text" placeholder="Director">
-                <select id="genero" name="genero">
-                    <optgroup label="Género">
-                        <option value="infantil">Infantil</option>
-                        <option value="fantasia">Fantasía</option>
-                        <option value="drama" selected>Drama</option>
-                        <option value="suspenso">Suspenso</option>
-                        <option value="terror">Terror</option>
-                        <option value="accion">Acción</option>
-                    </optgroup>
-                </select>
-                <button id="agregarMovie" type="submit">Agregar</button>
+                <fieldset><legend>Película</legend>
+                    <input id="title" name="title" type="text" placeholder="Titulo"> <br>
+                    <input id="year" name="year" type="number" placeholder="Año"><br>
+                    <input id="director" name="director" type="text" placeholder="Director"><br>
+                    <select id="genero" name="genero">
+                            <option disabled selected>Género</option>
+                            <option value="infantil">Infantil</option>
+                            <option value="fantasia">Fantasía</option>
+                            <option value="drama">Drama</option>
+                            <option value="suspenso">Suspenso</option>
+                            <option value="terror">Terror</option>
+                            <option value="accion">Acción</option>
+                    </select><br>
+                    <button id="agregarMovie" type="submit">Agregar</button>
+                </fieldset>
             </form>
         </div>
 

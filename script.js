@@ -3,6 +3,7 @@ const nameInput = document.querySelector('#title');
 const yearInput = document.querySelector('#year');
 const directorInput = document.querySelector('#director');
 const generoInput = document.querySelector('#genero');
+const peliculasVistas = [];
 
 // UI
 const formulario = document.querySelector('#form');
@@ -70,13 +71,18 @@ class UI {
       divPelicula.dataset.id = id;
       const trashIcon = document.createElement("i");
       const editIcon = document.createElement("i");
+      const checkedIcon = document.createElement("i");
+
+
       divPelicula.innerHTML = `<h3>${title}</h3>
                                 <p>Año: <small>${year}</small></p>
                                 <p>Director: ${director}</p>
                                 <p>Genero: ${genero}</p>`;
       contenedorFilms.appendChild(divPelicula);
       divPelicula.classList.add("peliculas-items");
+
       trashIcon.className = "fas fa-trash icons";
+      trashIcon.title = "Eliminar";
       trashIcon.style.color = "darkgray";
       trashIcon.addEventListener("mouseover", () => {
         trashIcon.style.color = "lightcoral";
@@ -88,7 +94,9 @@ class UI {
         eliminarPelicula(id);
       });
       divPelicula.appendChild(trashIcon);
+
       editIcon.className = "fas fa-edit icons";
+      editIcon.title = "Editar";
       editIcon.style.color = "darkgray";
       editIcon.addEventListener("mouseover", () => {
         editIcon.style.color = "limegreen";
@@ -100,8 +108,47 @@ class UI {
         cargarEdicion(pelicula);
       });
       divPelicula.appendChild(editIcon);
+
+      checkedIcon.className = "fas fa-clipboard-check icons";
+      checkedIcon.title = "Visto";
+      checkedIcon.id = `checked${id}`;
+      checkedIcon.style.color = "darkgray";
+      
+      // checkedIcon.addEventListener("click", () => {
+      //   checkedIcon.style.color = "limegreen";
+      // });
+      //======== Agregar lista de peliculas vistas=====//
+      divPelicula.appendChild(checkedIcon);
+      $(checkedIcon).click( () => {
+        $(checkedIcon).addClass('letter-green');
+      })
+      
+      const agregarVisto = function(id) {
+        let peliculaV = peliculas.find(peli => peli.id === id);
+        peliculasVistas.push(peliculaV);
+        console.log(peliculasVistas);
+      }
+      
+      
+      
+      const clickItem = $(`#checked${id}`);
+    
+      if ('.peliculas-items') {
+        $(clickItem).click( () => {
+          agregarVisto(id);
+          // $('#vistos').append(`
+          // <div class="vistos-div" id="visto-${id}">
+          //   <h2>${title}</h2>
+          //   <button>quitar</button>
+          //   <hr>
+          // </div>`
+          // )
+        });
+      }
+
     })
   }
+
   limpiarHTML() {
     while (contenedorFilms.firstChild) {
       contenedorFilms.removeChild( contenedorFilms.firstChild )
@@ -144,7 +191,7 @@ function nuevaPelicula(e){
   const { title, year, director, genero } = peliculaObj;
   
   //validacion
-  if (title === '' || year === '' || director === ''){
+  if (title === '' || year === '' || director === '' || genero === ''){
     ui.imprimirAlerta('Todos los campos son obligatorios', 'error');
     return;
   }
@@ -258,6 +305,3 @@ if (localStorage.getItem('peliculas') == []) {
 }
 //========== JQUERY=============//
 
-$('#ver-peliculas').click(() => {
-  ui.imprimirPeliculas(administrarPeliculas)
-})

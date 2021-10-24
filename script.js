@@ -3,7 +3,7 @@ const nameInput = document.querySelector('#title');
 const yearInput = document.querySelector('#year');
 const directorInput = document.querySelector('#director');
 const generoInput = document.querySelector('#genero');
-const peliculasVistas = [];
+let peliculasVistas = [];
 
 // UI
 const formulario = document.querySelector('#form');
@@ -13,6 +13,7 @@ let editando;
 const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
 if (localStorage.getItem('peliculas') == null){
   localStorage.setItem('peliculas', []);
+  alert('Aun no tiene películas cargadas. Agregue sus películas favoritas')
 } else {
   console.log('Esto esta ready')
 }
@@ -113,38 +114,33 @@ class UI {
       checkedIcon.title = "Visto";
       checkedIcon.id = `checked${id}`;
       checkedIcon.style.color = "darkgray";
+      checkedIcon.addEventListener("mouseover", () => {
+        checkedIcon.style.backgroundColor = "limegreen";
+      });
+      checkedIcon.addEventListener("mouseout", () => {
+        checkedIcon.style.backgroundColor = "inherit";
+      });
       
-      // checkedIcon.addEventListener("click", () => {
-      //   checkedIcon.style.color = "limegreen";
-      // });
       //======== Agregar lista de peliculas vistas=====//
       divPelicula.appendChild(checkedIcon);
       $(checkedIcon).click( () => {
-        $(checkedIcon).addClass('letter-green');
+        $(checkedIcon).addClass('letter-green');        
+        $(checkedIcon).css('background-color', "inherit");
       })
       
       const agregarVisto = function(id) {
         let peliculaV = peliculas.find(peli => peli.id === id);
         peliculasVistas.push(peliculaV);
+        let result = peliculasVistas.filter((it, i)=> {
+          return peliculasVistas.indexOf(it) === i;
+        })
+        peliculasVistas = result;
         console.log(peliculasVistas);
       }
-      
-      
-      
-      const clickItem = $(`#checked${id}`);
-    
-      if ('.peliculas-items') {
-        $(clickItem).click( () => {
-          agregarVisto(id);
-          // $('#vistos').append(`
-          // <div class="vistos-div" id="visto-${id}">
-          //   <h2>${title}</h2>
-          //   <button>quitar</button>
-          //   <hr>
-          // </div>`
-          // )
-        });
-      }
+
+      $(`#checked${id}`).click(() => {
+        agregarVisto(id);
+      })
 
     })
   }

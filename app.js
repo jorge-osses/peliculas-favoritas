@@ -51,3 +51,41 @@ function verVistas(peli){
     })
 }
 
+/////// Ghibli access ////////
+
+const ghibli = document.querySelector('#btn-ghibli')
+
+const url = "https://ghibliapi.herokuapp.com/films"
+// const url = "http://www.omdbapi.com/?i=tt3896198&apikey=8f18d607"
+let data = []
+
+$(ghibli).click(() =>{
+    $('.body-card').toggleClass('modal-active');
+    
+    $.get(url, (response, state) => {
+        data = response
+        console.log(data)
+        
+        data.forEach( (film) => {
+            let div = document.createElement('div');
+            $(div).addClass('card');
+            document.getElementById('modal-ghibli').appendChild(div);
+            div.innerHTML =`
+                <h3 class="titulo-original">${film.original_title}</h3>
+                <h4 class="titulo-english">${film.title} - ${film.release_date}</h4>
+                <p>${film.description}</p>
+                <img class="img-movie" src="${film.movie_banner}">
+            `
+            
+        })
+    })
+})
+$('#cerrarModal').click(() => {
+    $('.body-card').toggleClass('modal-active');
+});
+$('.body-card').click(() => {
+    $('.body-card').toggleClass('modal-active');
+});
+$('#modal-ghibli').click((event) => {
+    event.stopPropagation();
+});

@@ -22,8 +22,14 @@
                     <i class="fas fa-film"></i>
                     Mis Películas Favoritas
                 </h2>
-                <div class="busqueda">
-                    
+                <div class="busqueda user-input">
+                    <form id="search-form">
+                        <input class="user-input" type="text" id="search" name="search" placeholder="Ingrese película, ej: Jumanji">
+                        <button type="submit" name="action"><i class="fas fa-search"></i>BUSCAR</button>
+                    </form>
+                </div>
+                <div class="ghibli user-input">
+                    <button id="btn-ghibli">STUDIOS GHIBLI FILMS</button>
                 </div>
             </div>
             <div class="user-input">
@@ -60,6 +66,15 @@
 
     </div>
 
+    <div class="modal-body body-card">
+
+        <div id='modal-ghibli' class="modal user-input">
+            <span><i id="cerrarModal" class="far fa-times-circle"></i></span>
+            
+        </div>
+
+    </div>
+
     <div id="films" class="container">
 
     </div>
@@ -68,7 +83,7 @@
 
     </div>
     <footer class="footer">
-        <p class="letter-black">Copyright &copy Jorge Osses</p>
+        <p>Copyright &copy <a id="propietario" href="https://jorge.osses.ar" target="_blank">Jorge Osses - 2021</a></p>
     </footer>
     <script src="./script.js"></script>
     <script src="./app.js"></script>

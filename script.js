@@ -121,7 +121,7 @@ class UI {
         checkedIcon.style.backgroundColor = "inherit";
       });
       
-      //======== Agregar lista de peliculas vistas=====//
+      //======== Agregar lista de peliculas vistas jquery=====//
       divPelicula.appendChild(checkedIcon);
       $(checkedIcon).click( () => {
         $(checkedIcon).addClass('letter-green');        
@@ -299,5 +299,5 @@ if (localStorage.getItem('peliculas') == []) {
   eventListeners();
   administrarPeliculas.peliculas = JSON.parse(localStorage.getItem('peliculas'));
 }
-//========== JQUERY=============//
+
 

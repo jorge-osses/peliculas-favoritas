@@ -9,6 +9,7 @@ body{
     font-family: 'Fredoka One', cursive;
     background-image: linear-gradient(to right, #2c5cf8, #cc4c4c);
     color: #fff;
+    height: 100vh;
 }
 .loader{
     width: 100%;
@@ -25,10 +26,13 @@ body{
     transition: all 1s ease-out 1s;
 }
 .container {
-    width: 95%;
+    width: 85%;
     margin: auto;
 }
-
+a {
+    text-decoration: none;
+    color:inherit;
+}
 .nav{
     display: flex;
     justify-content: space-between;
@@ -36,18 +40,26 @@ body{
     width: 100%;
     margin: 25px 0;
 }
-
-.nav h2{
+.titular {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.titular h2{
     letter-spacing: 2px;
-    font-size: 2rem;
+    font-size: 2.5em;
     text-shadow: 1px 2px rgb(24, 22, 22);
 }
-
+.busqueda form{
+    display: flex;
+    flex-direction: row;
+}
 .user-input{
     width: 350px;
     text-align: center;
 }
-form {
+#form {
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -55,6 +67,10 @@ form {
 }
 #genero {
     background-color: inherit;
+}
+.ghibli{width: 81.5%;}
+.ghibli button{
+    width:100%;
 }
 .user-input form input, .user-input form select{
     width:80%;
@@ -161,12 +177,10 @@ span{
     font-size:2rem;
     margin-top: 15px;
 }
-span:hover{
-    cursor: pointer;
-    color: red;
-}
+
 i:hover {
     cursor: pointer;
+    color: red;
 
 }
 .letter-green{
@@ -222,15 +236,61 @@ legend{
     transform: scale(.98);
     box-shadow: none;
 }
+
+.body-card {
+    color: #1005b1;
+}
+.card {
+    margin: 15px auto;
+    width: 70%;
+    background: rgba(225, 231, 136, 0.767);
+    border-radius: 8px;
+    box-shadow: rgb(65, 62, 62) 0 6px 10px 0;
+}
+.card p{
+    padding: 15px
+}
+.titulo-original{
+    color: black;
+    font-size:27pt;
+    padding: 10px;
+}
+.titulo-english{
+    font-size:large;
+}
+.img-movie{
+    width:95%;
+    padding-bottom: 15px;
+}
+#modal-ghibli {
+    width: 80%;
+    height: 90%;
+    overflow-y: scroll;
+    /* background-color: #fff; */
+    background-image: linear-gradient(to left, #2c5cf8, #cc4c4c);
+}
+
 .footer {
     text-align: center;
-    margin-top:15px;
+    padding:15px;
     font-size: 0.8rem;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+@media(max-width:935px){
+    body{
+        height: auto;
+    }
 }
 @media(max-width:835px){
     .nav{
         align-items: center;
         flex-direction: column;
+    }
+    .container{
+        width:95%
     }
 
     .nav h2{

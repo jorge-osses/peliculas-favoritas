@@ -124,8 +124,6 @@ const buscarApi = (search) => {
     })
     .catch((error) => {
         console.log(error);
-        alert('No se encontró');
-        form.submit()
     })
     
 }

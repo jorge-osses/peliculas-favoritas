@@ -131,7 +131,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     $('.body-card').toggleClass('modal-active');
     const busqueda = document.querySelector('#search').value.trim();
-    const arrayBusqueda = buscarApi(busqueda);
+    buscarApi(busqueda);
 
     form.reset();
 })

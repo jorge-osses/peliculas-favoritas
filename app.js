@@ -108,7 +108,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     
     const buscarApi = (search) => {
-    fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY_API}&s=${search}`)
+    fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=${KEY_API}&s=${search}`)
     .then((response) => response.json() )
     .then((data) => {
         let arreglo = data.Search;

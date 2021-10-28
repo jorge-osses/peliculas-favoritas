@@ -9,7 +9,7 @@ body{
     font-family: 'Fredoka One', cursive;
     background-image: linear-gradient(to right, #2c5cf8, #cc4c4c);
     color: #fff;
-    height: 100vh;
+    height: auto;
 }
 .loader{
     width: 100%;
@@ -28,6 +28,40 @@ body{
 .container {
     width: 85%;
     margin: auto;
+}
+.studio-ghibli{
+    font-family: Helvetica, sans-serif;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size:contain;
+    background-image: url('https://www.ghibli.jp/img/totoro.png');
+    background-color: #109ceb;
+    
+    height: 500px;
+}
+.titulo-ghibli{
+    padding: 20px;
+    text-align: center;
+}
+.ghibli{
+    display: flex;
+    width: 81.5%;
+}
+.ghibli img{
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.ghibli img:hover{
+    transform: scale(1.1);
+}
+#btn-ghibli{
+    cursor: pointer;
+    background-color:rgba(0, 0, 0, 0.3);
+    height: 100%;
+    width:10%;
+    border-radius: 5px;
+    font-size: 80%;
 }
 a {
     text-decoration: none;
@@ -67,10 +101,6 @@ a {
 }
 #genero {
     background-color: inherit;
-}
-.ghibli{width: 81.5%;}
-.ghibli button{
-    width:100%;
 }
 .user-input form input, .user-input form select{
     width:80%;
@@ -238,11 +268,14 @@ legend{
 }
 
 .body-card {
-    color: #1005b1;
+    width:100%;
+    color: #000000;
+    
 }
 .card {
+    cursor: pointer;
     margin: 15px auto;
-    width: 70%;
+    width: 380px;
     background: rgba(225, 231, 136, 0.767);
     border-radius: 8px;
     box-shadow: rgb(65, 62, 62) 0 6px 10px 0;
@@ -262,9 +295,17 @@ legend{
     width:95%;
     padding-bottom: 15px;
 }
+#tarjetas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 #modal-ghibli {
-    width: 80%;
+    width: 90%;
     height: 90%;
+    display: flex;
+    flex-direction: column;
+    
     overflow-y: scroll;
     /* background-color: #fff; */
     background-image: linear-gradient(to left, #2c5cf8, #cc4c4c);

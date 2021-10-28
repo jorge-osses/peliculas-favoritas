@@ -56,7 +56,6 @@ function verVistas(peli){
 const ghibli = document.querySelector('#btn-ghibli')
 
 const url = "https://ghibliapi.herokuapp.com/films"
-// const url = "http://www.omdbapi.com/?i=tt3896198&apikey=8f18d607"
 let data = []
 
 $(ghibli).click(() =>{
@@ -69,10 +68,12 @@ $(ghibli).click(() =>{
         data.forEach( (film) => {
             let div = document.createElement('div');
             $(div).addClass('card');
-            document.getElementById('modal-ghibli').appendChild(div);
+            document.getElementById('tarjetas').appendChild(div);
             div.innerHTML =`
+            <i class="fas fa-star favourite">Favorita</i>
                 <h3 class="titulo-original">${film.original_title}</h3>
                 <h4 class="titulo-english">${film.title} - ${film.release_date}</h4>
+                <small>${film.director}</small>
                 <p>${film.description}</p>
                 <img class="img-movie" src="${film.movie_banner}">
             `
@@ -82,10 +83,57 @@ $(ghibli).click(() =>{
 })
 $('#cerrarModal').click(() => {
     $('.body-card').toggleClass('modal-active');
+    while (document.getElementById('tarjetas').firstChild) {
+        document.getElementById('tarjetas').removeChild(document.getElementById('tarjetas').firstChild)
+    }
 });
 $('.body-card').click(() => {
     $('.body-card').toggleClass('modal-active');
+    while (document.getElementById('tarjetas').firstChild) {
+        document.getElementById('tarjetas').removeChild(document.getElementById('tarjetas').firstChild)
+    }
 });
 $('#modal-ghibli').click((event) => {
     event.stopPropagation();
 });
+
+
+////////////// SEARCHING ////////
+
+const KEY_API = "8f18d607"
+const form = document.querySelector('form');
+
+const buscarApi = (search) => {
+    fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY_API}&s=${search}`)
+    .then((response) => response.json() )
+    .then((data) => {
+        let arreglo = data.Search;
+        for (let i=0;i<arreglo.length; i++){
+            if (arreglo[i].Poster == "N/A") {
+                continue
+            }
+            let div = document.createElement('div');
+            $(div).addClass('card');
+            document.getElementById('tarjetas').appendChild(div);
+            div.innerHTML =`
+                <i class="fas fa-star favourite">Favorita</i>
+                <h2>${arreglo[i].Title} - <small>${arreglo[i].Year}</small></h2>
+                <img class="img-movie" width="100px" src="${arreglo[i].Poster}">
+            `
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+        alert('No se encontró');
+        form.submit()
+    })
+    
+}
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    $('.body-card').toggleClass('modal-active');
+    const busqueda = document.querySelector('#search').value.trim();
+    const arrayBusqueda = buscarApi(busqueda);
+
+    form.reset();
+})

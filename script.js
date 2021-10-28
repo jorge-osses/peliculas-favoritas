@@ -157,7 +157,6 @@ const administrarPeliculas = new Peliculas();
 
 // Registrar eventos
 
-
 function eventListeners() {
   nameInput.addEventListener('input', datosFilm);
   yearInput.addEventListener('input', datosFilm);

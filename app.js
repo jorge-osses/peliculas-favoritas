@@ -103,7 +103,11 @@ $('#modal-ghibli').click((event) => {
 const KEY_API = "8f18d607"
 const form = document.querySelector('form');
 
-const buscarApi = (search) => {
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const buscarApi = (search) => {
     fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY_API}&s=${search}`)
     .then((response) => response.json() )
     .then((data) => {
@@ -126,9 +130,9 @@ const buscarApi = (search) => {
         console.log(error);
     })
     
-}
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+    }
+    
+    
     $('.body-card').toggleClass('modal-active');
     const busqueda = document.querySelector('#search').value.trim();
     buscarApi(busqueda);

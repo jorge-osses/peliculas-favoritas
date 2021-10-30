@@ -62,21 +62,33 @@ $(ghibli).click(() =>{
     $('.body-card').toggleClass('modal-active');
     
     $.get(url, (response, state) => {
-        data = response
-        console.log(data)
-        
+        data = response;
+
         data.forEach( (film) => {
             let div = document.createElement('div');
             $(div).addClass('card');
             document.getElementById('tarjetas').appendChild(div);
             div.innerHTML =`
-            <i class="fas fa-star favourite">Favorita</i>
+            <i id='${film.id}' class="fas fa-star favourite">Favorita</i>
                 <h3 class="titulo-original">${film.original_title}</h3>
                 <h4 class="titulo-english">${film.title} - ${film.release_date}</h4>
                 <small>${film.director}</small>
                 <p>${film.description}</p>
                 <img class="img-movie" src="${film.movie_banner}">
             `
+
+            $(`#${film.id}`).click(() => {
+                peliculaBusqueda.title = film.title;
+                peliculaBusqueda.year = film.release_date;
+                peliculaBusqueda.director = film.director;
+                peliculaBusqueda.genero = 'Animé/fantasia/infantil';
+                peliculaBusqueda.id = film.id;
+                administrarPeliculas.agregarPelicula({...peliculaBusqueda});
+                ui.imprimirAlerta('Se agregó correctamente');
+                ui.imprimirPeliculas(administrarPeliculas);
+                reiniciarPeliBusqueda()
+            
+            })
             
         })
     })
@@ -112,18 +124,34 @@ form.addEventListener('submit', (e) => {
     .then((response) => response.json() )
     .then((data) => {
         let arreglo = data.Search;
-        for (let i=0;i<arreglo.length; i++){
-            if (arreglo[i].Poster == "N/A") {
-                continue
+        if (arreglo != null){
+            for (let i=0;i<arreglo.length; i++){
+                if (arreglo[i].Poster !== "N/A" && arreglo[i].Type === 'movie') {
+                    let div = document.createElement('div');
+                    $(div).addClass('card');
+                    document.getElementById('tarjetas').appendChild(div);
+                    div.innerHTML =`
+                        <i id='${arreglo[i].imdbID}'class="fas fa-star favourite">Favorita</i>
+                        <h2>${arreglo[i].Title} - <small>${arreglo[i].Year}</small></h2>
+                        <img class="img-movie" width="100px" src="${arreglo[i].Poster}">
+                    `
+                }
+                $(`#${arreglo[i].imdbID}`).click(() => {
+                    peliculaBusqueda.title = arreglo[i].Title;
+                    peliculaBusqueda.year = arreglo[i].Year;
+                    peliculaBusqueda.director = 'N/A';
+                    peliculaBusqueda.genero = arreglo[i].Type;
+                    peliculaBusqueda.id = arreglo[i].imdbID;
+                    administrarPeliculas.agregarPelicula({...peliculaBusqueda});
+                    ui.imprimirAlerta('Se agregó correctamente');
+                    ui.imprimirPeliculas(administrarPeliculas);
+                    reiniciarPeliBusqueda()
+                
+                })
             }
-            let div = document.createElement('div');
-            $(div).addClass('card');
-            document.getElementById('tarjetas').appendChild(div);
-            div.innerHTML =`
-                <i class="fas fa-star favourite">Favorita</i>
-                <h2>${arreglo[i].Title} - <small>${arreglo[i].Year}</small></h2>
-                <img class="img-movie" width="100px" src="${arreglo[i].Poster}">
-            `
+        } else {
+            $('.body-card').toggleClass('modal-active');
+            ui.imprimirAlerta('No existe en la búsqueda, prueba con el nombre en inglés', 'error');
         }
     })
     .catch((error) => {
@@ -139,3 +167,19 @@ form.addEventListener('submit', (e) => {
 
     form.reset();
 })
+
+const peliculaBusqueda = {
+    title: '',
+    year: '',
+    director: '',
+    genero: '',
+    id: '',
+}
+const reiniciarPeliBusqueda = () => {
+    peliculaBusqueda.title= '';
+    peliculaBusqueda.year= '';
+    peliculaBusqueda.director= '';
+    peliculaBusqueda.genero= '';
+    peliculaBusqueda.id= '';
+}
+

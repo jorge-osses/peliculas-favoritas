@@ -22,7 +22,7 @@
                         <i class="fas fa-film"></i>
                         Mis Películas Favoritas
                     </h2>
-                    <div class="busqueda user-input"> <!-- style="display:none;" -->
+                    <div class="busqueda user-input">
                         <form id="search-form">
                             <input class="user-input" type="text" id="search" name="search" placeholder="Ingrese película, ej: Jumanji">
                             <button type="submit" name="action"><i class="fas fa-search"></i>BUSCAR</button>
@@ -37,17 +37,9 @@
             </div>
             
         </div>
-        
-        <div class="studio-ghibli">
-            <h1 class="titulo-ghibli">Explora el mundo animé de la mano de...</h1>
-            <div class="ghibli">
-                <button id="btn-ghibli">VER PELICULAS<img src="https://www.ghibli.jp/img/home.png" alt="Totorito"></button>
-                
-            </div>
-        </div>
 
         <div class="modal-body">
-
+            
             <div id='modal' class="modal user-input">
                 <span id="cerrar-modal"><i class="far fa-times-circle"></i></span>
                 <form id="form" action="">
@@ -56,36 +48,43 @@
                         <input id="year" name="year" type="number" placeholder="Año"><br>
                         <input id="director" name="director" type="text" placeholder="Director"><br>
                         <select id="genero" name="genero">
-                                <option disabled selected>Género</option>
-                                <option value="infantil">Infantil</option>
-                                <option value="fantasia">Fantasía</option>
-                                <option value="drama">Drama</option>
-                                <option value="suspenso">Suspenso</option>
-                                <option value="terror">Terror</option>
-                                <option value="accion">Acción</option>
+                            <option disabled selected>Género</option>
+                            <option value="infantil">Infantil</option>
+                            <option value="fantasia">Fantasía</option>
+                            <option value="drama">Drama</option>
+                            <option value="suspenso">Suspenso</option>
+                            <option value="terror">Terror</option>
+                            <option value="accion">Acción</option>
                         </select><br>
                         <button id="agregarMovie" type="submit">Agregar</button>
                     </fieldset>
                 </form>
             </div>
-
+            
         </div>
-
+        
         <div class="modal-body body-card">
-
+            
             <div id='modal-ghibli' class="modal user-input">
                 <span><i id="cerrarModal" class="far fa-times-circle"></i></span>
                 <div id="tarjetas"></div>
             </div>
-
+            
         </div>
-
+        
         <div id="films" class="container">
-
+            
         </div>
+        
+        <div class="studio-ghibli">
+            <h1 class="titulo-ghibli"><img src="https://www.ghibli.jp/img/home.png" alt="Totorito"><a href="https://www.netflix.com/browse/genre/81227213" target="_blank">Las Películas de Anime Japonés</a><img src="https://www.ghibli.jp/img/home.png" alt="Totorito"></h1>
+            <div class="ghibli user-input">
+                <button id="btn-ghibli">VER PELICULAS</button>
+            </div>
+        </div>
+        
         <div id="vistos" class="container">
             
-
         </div>
         <footer class="footer">
             <p>Copyright &copy <a id="propietario" href="https://jorge.osses.ar" target="_blank">Jorge Osses - 2021</a></p>

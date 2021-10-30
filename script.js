@@ -26,7 +26,7 @@ class Peliculas {
   agregarPelicula(pelicula){
     this.peliculas = [...this.peliculas, pelicula]
     guardarLocal('peliculas', JSON.stringify(this.peliculas));
-    console.log(this.peliculas)
+    // console.log(this.peliculas)
   }
 
   eliminarPelicula(id){
@@ -56,7 +56,7 @@ class UI {
     //mensaje de error
     divMensaje.textContent = mensaje;
     // agregar al DOM
-    document.querySelector('#modal').insertBefore(divMensaje, document.querySelector('#cerrar-modal'));
+    document.querySelector('html').insertBefore(divMensaje, document.querySelector('body'));
     //quitar alerta despues de 5 seg
     setTimeout(() => {
       divMensaje.remove();
@@ -135,7 +135,6 @@ class UI {
           return peliculasVistas.indexOf(it) === i;
         })
         peliculasVistas = result;
-        console.log(peliculasVistas);
       }
 
       $(`#checked${id}`).click(() => {

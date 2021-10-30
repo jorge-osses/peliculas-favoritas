@@ -311,7 +311,14 @@ legend{
     /* background-color: #fff; */
     background-image: linear-gradient(to left, #2c5cf8, #cc4c4c);
 }
-
+#botonCerrar {
+    top: 0;
+    position: sticky;
+    transition: .5s;
+}
+.fondoWhite {
+    background-color: rgba(255, 255, 255, 0.8);
+}
 .footer {
     text-align: center;
     padding:15px;

@@ -27,6 +27,14 @@ $('#ver-peliculas').click(() => {
                
 })
 
+$('.modal').on('scroll', () => {
+    if ($('#modal-ghibli').scrollTop()) {
+        $('#botonCerrar').addClass('fondoWhite');
+    } else {
+        $('#botonCerrar').removeClass('fondoWhite');
+    }
+})
+
 
 $("#vistos").append(`
     <div class="titulo-vistas" style="display:none;">

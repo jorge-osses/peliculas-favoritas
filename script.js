@@ -13,7 +13,7 @@ let editando;
 const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
 if (localStorage.getItem('peliculas') == null){
   localStorage.setItem('peliculas', []);
-  alert('Aun no tiene películas cargadas. Agregue sus películas favoritas')
+  ui.imprimirAlerta('Aun no tiene películas cargadas. Agregue sus películas favoritas');
 } else {
   console.log('Esto esta ready')
 }
@@ -26,7 +26,6 @@ class Peliculas {
   agregarPelicula(pelicula){
     this.peliculas = [...this.peliculas, pelicula]
     guardarLocal('peliculas', JSON.stringify(this.peliculas));
-    // console.log(this.peliculas)
   }
 
   eliminarPelicula(id){
@@ -53,11 +52,8 @@ class UI {
       divMensaje.classList.add('alert-success');
     }
 
-    //mensaje de error
     divMensaje.textContent = mensaje;
-    // agregar al DOM
     document.querySelector('html').insertBefore(divMensaje, document.querySelector('body'));
-    //quitar alerta despues de 5 seg
     setTimeout(() => {
       divMensaje.remove();
     }, 5000 );
@@ -297,5 +293,3 @@ if (localStorage.getItem('peliculas') == []) {
   eventListeners();
   administrarPeliculas.peliculas = JSON.parse(localStorage.getItem('peliculas'));
 }
-
-

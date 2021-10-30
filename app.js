@@ -190,4 +190,3 @@ const reiniciarPeliBusqueda = () => {
     peliculaBusqueda.genero= '';
     peliculaBusqueda.id= '';
 }
-

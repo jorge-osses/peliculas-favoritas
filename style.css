@@ -175,10 +175,12 @@ a {
     z-index: 100;
 }
 .alert-danger {
+    position: relative;
     background-color:red;
     color: white;
 }
 .alert-success {
+    position: relative;
     background-color:green;
 }
 .icons {
@@ -322,7 +324,6 @@ legend{
     text-align: center;
     padding:15px;
     font-size: 0.8rem;
-    position: relative;
     bottom: 0;
     left: 0;
 }

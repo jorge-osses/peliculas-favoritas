@@ -11,9 +11,9 @@ const contenedorFilms = document.querySelector('#films');
 
 let editando;
 const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
-if (localStorage.getItem('peliculas') == null){
-  localStorage.setItem('peliculas', []);
-  ui.imprimirAlerta('Aun no tiene películas cargadas. Agregue sus películas favoritas');
+if (localStorage.getItem('peliculas') == undefined){
+  guardarLocal('peliculas', []);
+  alert('Aun no tiene películas cargadas. Agregue sus películas favoritas');
 } else {
   console.log('Esto esta ready')
 }
